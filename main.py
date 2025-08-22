@@ -1,18 +1,36 @@
+import argparse
 from client import get_id, get_invasions, submit_challenge, register_challenge
 from solver import solve
 
-EMAIL = "kitagawa.e@northeastern.edu"
-NUID = "002777838"
+
+def run_challenge(email: str, nuid: str):
+    print(f"🔗 Registering challenge for {email} ({nuid})...")
+    register_challenge(email, nuid)
+
+    challenge_id = get_id(email, nuid)
+    print(f"✅ Challenge ID: {challenge_id}")
+
+    invasions = get_invasions(challenge_id)
+    print(f"👾 Retrieved {len(invasions)} invasions")
+
+    print("⚡ Solving challenge...")
+    solution = solve(invasions)
+
+    result = submit_challenge(solution, challenge_id)
+    print("📤 Submission Result:", result)
+
 
 def main():
-    register_challenge(EMAIL, NUID)
-    challenge_id = get_id(EMAIL, NUID)
-    invasions = get_invasions(challenge_id)
-    
-    solution = solve(invasions)
-    result = submit_challenge(solution, challenge_id)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--email", type=str, help="Your Northeastern email")
+    parser.add_argument("--nuid", type=str, help="Your NUID")
 
-    print("Submission Result:", result)
+    args = parser.parse_args()
+
+    email = args.email or input("Enter your Northeastern email: ").strip()
+    nuid = args.nuid or input("Enter your NUID: ").strip()
+
+    run_challenge(email, nuid)
 
 
 if __name__ == "__main__":
