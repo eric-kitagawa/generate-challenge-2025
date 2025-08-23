@@ -2,6 +2,13 @@ import argparse
 from client import get_id, get_invasions, submit_challenge, register_challenge
 from solver import solve
 
+"""
+2025 NU Generate Challenge (Backend Track 2)
+
+This script registers you for the alien invasion challenge, fetches the
+invasion data, solves it, and submits your solution
+back to the API.
+"""
 
 def run_challenge(email: str, nuid: str):
     print(f"🔗 Registering challenge for {email} ({nuid})...")
@@ -21,14 +28,14 @@ def run_challenge(email: str, nuid: str):
 
 
 def main():
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument("--email", type=str, help="Your Northeastern email")
-    # parser.add_argument("--nuid", type=str, help="Your NUID")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--email", type=str, help="Your Northeastern email")
+    parser.add_argument("--nuid", type=str, help="Your NUID")
 
-    # args = parser.parse_args()
+    args = parser.parse_args()
 
-    # email = args.email or input("Enter your Northeastern email: ").strip()
-    # nuid = args.nuid or input("Enter your NUID: ").strip()
+    email = args.email or input("Enter your Northeastern email: ").strip()
+    nuid = args.nuid or input("Enter your NUID: ").strip()
 
     email = "kitagawa.e@northeastern.edu"
     nuid = "002777838"
